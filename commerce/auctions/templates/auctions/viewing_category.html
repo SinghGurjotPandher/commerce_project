@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2> Viewing Category: <b> {{name}} </b> </h2>
+    {% for data in data %}
+        <div style = "border: solid rgb(203, 201, 201); padding-left: 150px;" >
+            <img style = "vertical-align: middle;" src = "{{data.url}}" height = 300px width=400px >
+            <p style = "vertical-align: middle; display: inline-block; font-size: 30px; margin-left: 50px; max-width: 600px; ">
+                <a href = "{% url 'view_listing' data.title %}">
+                    <b style = "font-size: 50px; color:blue">{{data.title}} <br></b>
+                </a>
+                <b> Price: </b> {{data.price}} <br>
+                <small style = "font-size: 20px;"><b>Description: </b> </small>
+                <br>
+                <description style = "font-size: 20px;"> {{data.description}}</description>
+                <br>
+                <small style="font-size: 20px;"> <b>Created</b> on {{data.date}}</small>
+            </p>
+        </div>
+        <br>
+    {% endfor %}
+{% endblock %}

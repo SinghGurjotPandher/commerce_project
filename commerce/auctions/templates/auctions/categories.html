@@ -1,0 +1,20 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2> Categories </h2>
+    <a href ="{% url 'fashion'%}">
+    <button style = "background-color: blue; width: 175px; height: 50px; font-size: 20px; color: white;">Fashion</button>
+    </a>
+    <a href = "{% url 'toys'%}">
+        <button style = "background-color: blue; width: 175px; height: 50px; font-size: 20px; color: white;">Toys</button>
+    </a>
+    <a href = "{% url 'electronics'%}">
+        <button style = "background-color: blue; width: 175px; height: 50px; font-size: 20px; color: white;">Electronics</button>
+    </a>
+    <a href = "{% url 'home'%}">
+        <button style = "background-color: blue; width: 175px; height: 50px; font-size: 20px; color: white;">Home</button>
+    </a>
+    <a href = "{% url 'education'%}">
+        <button style = "background-color: blue; width: 175px; height: 50px; font-size: 20px; color: white;">Education</button>
+    </a>
+{% endblock %}

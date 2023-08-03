@@ -1,0 +1,21 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2 style = "color: green;"> <b>Winned Auction List: </b></h2>
+    {% for data in data %}
+        <div style = "border: solid rgb(203, 201, 201); padding-left: 150px;" >
+            <img style = "vertical-align: middle;" src = "{{data.url}}" height = 300px width=400px >
+            <p style = "vertical-align: middle; display: inline-block; font-size: 30px; margin-left: 50px; max-width: 600px; ">
+                <b style = "font-size: 50px; ">{{data.title}} <br></b>
+                <b> Price: </b> {{data.price}} <br>
+                <small style = "font-size: 20px;"><b>Description: </b> </small>
+                <br>
+                <description style = "font-size: 20px;"> {{data.description}}</description>
+                <br>
+                <small style="font-size: 20px;"> <b>Created</b> on {{data.date}}</small>
+                <br>
+            </p>
+        </div>
+        <br>
+    {% endfor %}
+{% endblock %}

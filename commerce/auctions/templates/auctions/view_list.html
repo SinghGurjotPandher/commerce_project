@@ -1,0 +1,77 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if message %}
+        <div style = "color: green"><b>Update: {{ message }} You may view it <a href = "{% url 'watch_list' user.username %}"> here</a>. Scroll down or go to <a href = "{% url 'watch_list' user.username %}"> Watchlist</a> to remove this list from Watchlist.</b></div>
+        <br>
+    {% endif %}
+    {% if note %}
+        <div style = "color: red"><b>Update: {{ note }} </a></b></div>
+        <br>
+    {% endif %}
+    {% if bid_made %}
+        <div style = "color: green"><b>Update: {{ bid_made }}.</b></div>
+        <br>
+    {% endif %}
+    {% if error %}
+        <div style = "color: red"><b>Error: {{ error }}.</b></div>
+        <br>
+    {% endif %}
+    {% if comment_success %}
+        <div style = "color: green"><b>Update: {{ comment_success }}.</b></div>
+        <br>
+    {% endif %}
+    {% if update %}
+        <div style = "color: green"><b>Update: {{ update }}.</b></div>
+        <br>
+    {% endif %}
+    {% for data in data %}
+        <h2><b>Listing: {{data.title}}</b></h2>
+        <img src = "{{data.url}}" height = 400px width=600px ><br>
+        <br>
+        {{data.description}}
+        <br>
+        <br>
+        <div style = "font-size: 25px;"> <b> Price: </b>{{data.price}}</div>
+        {% if user.is_authenticated %}
+            <form action = "{% url 'new_bid' data.title user.username %}" method = "POST">
+                {% csrf_token %}
+                {{form}}
+                <input type = "submit">
+            </form>
+        {% endif %}
+        <br><h4> <b> Details </b></h4>
+        <ul>
+            <li> Listed by: {{data.name}} </li>
+            <li> Date Listed: {{data.date}}</li>
+            <li> Category: {{data.category}}</li>
+        </ul>
+        {% if user.is_authenticated %}
+            {% if check_text %}
+                <form action = "{% url 'close_auction' data.title %}">
+                    <input style = "background-color: lightgreen; color: black; border: solid green;"type = "submit" value = "Close Auction">
+                </form>
+            {% endif %}
+            <br>
+            <a href = "{% url 'add_watchlist' user.username data.title user.id %}">
+                <b style = "font-size: 20px; color:green">Add to Watchlist <br></b>
+            </a>
+            <a href = "{% url 'remove_watchlist' user.username data.title user.id %}">
+                <b style = "font-size: 20px; color:red">{{check}} <br></b>
+            </a>
+            <form action = "{% url 'add_comment' user.username data.title %}" method = "post">
+                {% csrf_token %}
+                {{form_comment}}
+                <input type = "submit" value = "Comment">
+            </form>
+            <br>
+        {% endif %}
+        <h4> <b> Comments: </b> </h4>
+            <hr>
+            {% for comments in comments %}
+                <comment style = "color: gray">{{ comments.comment }}</comment><br>
+                <i>- Added by <b>{{ comments.username }}</b></i>
+                <hr>
+            {% endfor %}
+    {% endfor %}
+{% endblock %}
